@@ -1,5 +1,5 @@
 name: aktor
-version: 0.0.1
+version: 0.0.2
 description: A simple tool that solves Dart's lack of metaprogramming features. Perfect for building scripts, background jobs, scheduled tasks, and development utilities like code generation, data processing, and more.
 repository: https://github.com/mkalmousli/aktor.dart
 issue_tracker: https://github.com/mkalmousli/aktor.dart/issues
