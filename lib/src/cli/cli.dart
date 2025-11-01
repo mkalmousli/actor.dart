@@ -248,9 +248,9 @@ Future<int> runCli(List<String> args) async {
     // (but not if stopped, starting, or initial - those are transient states)
     final currentState = runner.state;
     final shouldRestart = currentState.maybeWhen(
-      running: (_, __) => true,
-      completed: (_, __) => true, // Restart completed live aktors
-      failed: (_, __) => true, // Restart failed live aktors
+      running: (_, _) => true,
+      completed: (_, _) => true, // Restart completed live aktors
+      failed: (_, _) => true, // Restart failed live aktors
       orElse: () => false,
     );
 
@@ -268,7 +268,7 @@ Future<int> runCli(List<String> args) async {
 
     // Stop the current runner (if it's running, otherwise just clean up)
     final wasRunning = currentState.maybeWhen(
-      running: (_, __) => true,
+      running: (_, _) => true,
       orElse: () => false,
     );
 

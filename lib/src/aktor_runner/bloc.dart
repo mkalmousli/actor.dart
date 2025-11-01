@@ -14,8 +14,6 @@ import 'package:path/path.dart';
 import 'state.dart' as s;
 import 'event.dart' as e;
 
-enum _IOType { stdout, stderr }
-
 /// Manages aktor process lifecycle using BLoC pattern.
 class AktorRunner extends bloc.Bloc<e.Event, s.State> {
   /// Aktor configuration.
