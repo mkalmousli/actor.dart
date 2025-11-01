@@ -1,10 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'actor.freezed.dart';
+part 'aktor.freezed.dart';
 
 @freezed
-abstract class Actor with _$Actor {
-  const factory Actor({
+abstract class Aktor with _$Aktor {
+  const factory Aktor({
     /// Function name.
     required String functionName,
 
@@ -19,5 +19,5 @@ abstract class Actor with _$Actor {
 
     /// Whether the method requires a context.
     @Default(false) bool requireContext,
-  }) = _Actor;
+  }) = _Aktor;
 }

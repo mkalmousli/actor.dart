@@ -1,17 +1,17 @@
 import 'dart:io';
 
-import 'package:actor/src/models/actor.dart';
-import 'package:actor/src/models/dart_file.dart';
-import 'package:actor/src/models/mode.dart';
-import 'package:actor/src/actor_runner/bloc.dart' as b_actor_runner;
-import 'package:actor/src/actor_runner/state.dart' as s_actor_runner;
-import 'package:actor/src/asset_reader.dart';
-import 'package:actor/src/ext.dart';
-import 'package:actor/version.dart';
+import 'package:aktor/src/models/aktor.dart';
+import 'package:aktor/src/models/dart_file.dart';
+import 'package:aktor/src/models/mode.dart';
+import 'package:aktor/src/aktor_runner/bloc.dart' as b_aktor_runner;
+import 'package:aktor/src/aktor_runner/state.dart' as s_aktor_runner;
+import 'package:aktor/src/asset_reader.dart';
+import 'package:aktor/src/ext.dart';
+import 'package:aktor/version.dart';
 import 'package:ansi/ansi.dart';
 import 'package:collection/collection.dart';
 
-/// Runs the actor CLI with the given command-line arguments.
+/// Runs the aktor CLI with the given command-line arguments.
 Future<int> runCli(List<String> args) async {
   final devFlags = {"-d", "--dev"};
 
@@ -21,7 +21,7 @@ Future<int> runCli(List<String> args) async {
   final pathArgs = args.where((arg) => !actionsArgs.contains(arg)).toList();
 
   if (actionsArgs.contains("-v") || actionsArgs.contains("--version")) {
-    stdout.writeln(green("You are using actor version ${version}"));
+    stdout.writeln(green("You are using aktor version $version."));
     return 0;
   }
 
@@ -79,21 +79,21 @@ Future<int> runCli(List<String> args) async {
   }
 
   final allDartFiles = <DartFile>{};
-  final actorRunners = <b_actor_runner.ActorRunner>{};
+  final aktorRunners = <b_aktor_runner.AktorRunner>{};
 
-  /// Creates and starts a runner for the given actor.
-  Future<void> runActor(Actor actor, DartFile dartFile) async {
-    final runner = b_actor_runner.ActorRunner(
-      actor: actor,
+  /// Creates and starts a runner for the given aktor.
+  Future<void> runAktor(Aktor aktor, DartFile dartFile) async {
+    final runner = b_aktor_runner.AktorRunner(
+      aktor: aktor,
       dartFile: dartFile,
       dRoot: dRoot,
-      initialState: s_actor_runner.State.initial(),
+      initialState: s_aktor_runner.State.initial(),
     );
-    actorRunners.add(runner);
+    aktorRunners.add(runner);
     await runner.start(mode);
   }
 
-  /// Processes a Dart file, managing actors as they're added or removed.
+  /// Processes a Dart file, managing aktors as they're added or removed.
   Future<void> processDartFile(DartFile dartFile) async {
     final oldDartFile = allDartFiles.firstWhereOrNull(
       (df) => df.file.path == dartFile.file.path,
@@ -102,33 +102,33 @@ Future<int> runCli(List<String> args) async {
 
     final isNew = oldDartFile == null;
 
-    final newActors = <Actor>{};
-    final removedActors = <Actor>{};
+    final newAktors = <Aktor>{};
+    final removedAktors = <Aktor>{};
 
     if (isNew) {
-      newActors.addAll(dartFile.actors);
+      newAktors.addAll(dartFile.aktors);
     } else {
-      newActors.addAll(
-        dartFile.actors.where((a) => !oldDartFile.actors.any((oa) => oa == a)),
+      newAktors.addAll(
+        dartFile.aktors.where((a) => !oldDartFile.aktors.any((oa) => oa == a)),
       );
-      removedActors.addAll(
-        oldDartFile.actors.where((a) => !dartFile.actors.any((oa) => oa == a)),
+      removedAktors.addAll(
+        oldDartFile.aktors.where((a) => !dartFile.aktors.any((oa) => oa == a)),
       );
     }
 
-    for (final actor in newActors) {
-      await runActor(actor, dartFile);
+    for (final aktor in newAktors) {
+      await runAktor(aktor, dartFile);
     }
 
-    for (final actor in removedActors) {
-      final runner = actorRunners.firstWhereOrNull(
+    for (final aktor in removedAktors) {
+      final runner = aktorRunners.firstWhereOrNull(
         (r) =>
-            r.actor.functionName == actor.functionName &&
+            r.aktor.functionName == aktor.functionName &&
             r.dartFile.file.path == dartFile.file.path &&
             r.dRoot.path == dRoot.path,
       );
       await runner?.stop();
-      actorRunners.remove(runner);
+      aktorRunners.remove(runner);
     }
 
     allDartFiles.add(dartFile);
@@ -141,8 +141,8 @@ Future<int> runCli(List<String> args) async {
     iCycle += 1;
     final isFirstCycle = iCycle == 1;
 
-    if (actorRunners.isEmpty) {
-      stdout.writeln(yellow("Searching for actors..."));
+    if (aktorRunners.isEmpty) {
+      stdout.writeln(yellow("Searching for aktors..."));
     }
 
     final assetReader = AssetReader();
@@ -156,8 +156,8 @@ Future<int> runCli(List<String> args) async {
       await processDartFile(dartFile);
     }
 
-    if (isFirstCycle && actorRunners.isEmpty) {
-      stdout.writeln(yellow("No actors found."));
+    if (isFirstCycle && aktorRunners.isEmpty) {
+      stdout.writeln(yellow("No aktors found."));
     }
   }
 
@@ -169,7 +169,7 @@ Future<int> runCli(List<String> args) async {
     }
   }
 
-  for (final ar in actorRunners) {
+  for (final ar in aktorRunners) {
     await ar.wait();
   }
 

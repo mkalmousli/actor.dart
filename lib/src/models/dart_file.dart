@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:actor/src/const.dart';
-import 'package:actor/src/ext.dart';
-import 'package:actor/src/asset_reader.dart';
+import 'package:aktor/src/const.dart';
+import 'package:aktor/src/ext.dart';
+import 'package:aktor/src/asset_reader.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:collection/collection.dart';
-import 'package:actor/src/models/actor.dart';
+import 'package:aktor/src/models/aktor.dart';
 
 part 'dart_file.freezed.dart';
 
@@ -16,14 +16,14 @@ abstract class DartFile with _$DartFile {
   /// A main Dart file.
   const factory DartFile.main({
     required File file,
-    required List<Actor> actors,
+    required List<Aktor> aktors,
   }) = MainFile;
 
   /// A part file.
   const factory DartFile.part({
     required File mainFile,
     required File file,
-    required List<Actor> actors,
+    required List<Aktor> aktors,
   }) = PartFile;
 
   /// Parses a DartFile from a File.
@@ -64,22 +64,22 @@ abstract class DartFile with _$DartFile {
 
     final imports = mainAst.directives.whereType<ImportDirective>();
 
-    final actorImport = imports
+    final aktorImport = imports
         .where((imp) => imp.uri.stringValue == Const.importPath)
         .firstOrNull;
 
-    final isImported = actorImport != null;
+    final isImported = aktorImport != null;
 
-    final actors = <Actor>[];
+    final aktors = <Aktor>[];
     if (isImported) {
-      final actorPrefix = actorImport.prefix?.name;
-      actors.addAll(fileAst.getActors(fileContent, actorPrefix));
+      final aktorPrefix = aktorImport.prefix?.name;
+      aktors.addAll(fileAst.getAktors(fileContent, aktorPrefix));
     }
 
     if (isMain) {
-      return DartFile.main(file: file, actors: actors);
+      return DartFile.main(file: file, aktors: aktors);
     } else {
-      return DartFile.part(mainFile: fMain, file: file, actors: actors);
+      return DartFile.part(mainFile: fMain, file: file, aktors: aktors);
     }
   }
 }
@@ -87,20 +87,20 @@ abstract class DartFile with _$DartFile {
 extension DartFileX on DartFile {
   /// File for both main and part files.
   File get file => when(
-    main: (file, actors) => file,
-    part: (mainFile, file, actors) => file,
+    main: (file, aktors) => file,
+    part: (mainFile, file, aktors) => file,
   );
 
-  /// Actors list for both main and part files.
-  List<Actor> get actors => when(
-    main: (file, actors) => actors,
-    part: (mainFile, file, actors) => actors,
+  /// Aktors list for both main and part files.
+  List<Aktor> get aktors => when(
+    main: (file, aktors) => aktors,
+    part: (mainFile, file, aktors) => aktors,
   );
 }
 
 extension CompilationUnitX on CompilationUnit {
-  /// Extracts all actor functions from this compilation unit.
-  Iterable<Actor> getActors(String fileContent, [String? prefix]) sync* {
+  /// Extracts all aktor functions from this compilation unit.
+  Iterable<Aktor> getAktors(String fileContent, [String? prefix]) sync* {
     final expectedAnnoName = switch (prefix) {
       null => Const.annotationName,
       String v => "$v.${Const.annotationName}",
@@ -108,19 +108,19 @@ extension CompilationUnitX on CompilationUnit {
 
     final methods = declarations.whereType<FunctionDeclaration>();
 
-    final actorMethods = <FunctionDeclaration>[];
+    final aktorMethods = <FunctionDeclaration>[];
 
     for (final method in methods) {
       for (final anonotation in method.metadata) {
         final name = anonotation.name.name;
         if (name == expectedAnnoName) {
-          actorMethods.add(method);
+          aktorMethods.add(method);
           break;
         }
       }
     }
 
-    for (final method in actorMethods) {
+    for (final method in aktorMethods) {
       final methodName = method.name.value().toString();
       final isPrivate = methodName.startsWith("_");
 
@@ -140,7 +140,7 @@ extension CompilationUnitX on CompilationUnit {
       final columnNumber =
           offset - fileContent.substring(0, offset).lastIndexOf('\n');
 
-      yield Actor(
+      yield Aktor(
         functionName: methodName,
         isAsync: isAsync,
         requireContext: requireContext,

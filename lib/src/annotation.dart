@@ -1,17 +1,17 @@
 ///
-/// The annotation to mark a function as an actor.
-/// It is used to extract the actor from the function.
+/// The annotation to mark a function as an aktor.
+/// It is used to extract the aktor from the function.
 ///
 /// Example:
 /// ```dart
-/// @actor
+/// @aktor
 /// Future<void> sayHello(C c)async {
 ///   print("Hello, world!");
 /// }
 /// ```
 ///
-const actor = ActorAnnotation._();
+const aktor = AktorAnnotation._();
 
-class ActorAnnotation {
-  const ActorAnnotation._();
+class AktorAnnotation {
+  const AktorAnnotation._();
 }

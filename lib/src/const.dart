@@ -1,11 +1,11 @@
-/// Constants used throughout the actor package.
+/// Constants used throughout the aktor package.
 class Const {
   /// Package name.
-  static const packageName = "actor";
+  static const packageName = "aktor";
 
-  /// Annotation name used to mark actor functions.
+  /// Annotation name used to mark aktor functions.
   static const annotationName = packageName;
 
-  /// Import path for the actor package.
+  /// Import path for the aktor package.
   static const importPath = "package:$packageName/$packageName.dart";
 }

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DartFile {
 
- File get file; List<Actor> get actors;
+ File get file; List<Aktor> get aktors;
 /// Create a copy of DartFile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $DartFileCopyWith<DartFile> get copyWith => _$DartFileCopyWithImpl<DartFile>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DartFile&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other.actors, actors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DartFile&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other.aktors, aktors));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,file,const DeepCollectionEquality().hash(actors));
+int get hashCode => Object.hash(runtimeType,file,const DeepCollectionEquality().hash(aktors));
 
 @override
 String toString() {
-  return 'DartFile(file: $file, actors: $actors)';
+  return 'DartFile(file: $file, aktors: $aktors)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $DartFileCopyWith<$Res>  {
   factory $DartFileCopyWith(DartFile value, $Res Function(DartFile) _then) = _$DartFileCopyWithImpl;
 @useResult
 $Res call({
- File file, List<Actor> actors
+ File file, List<Aktor> aktors
 });
 
 
@@ -62,11 +62,11 @@ class _$DartFileCopyWithImpl<$Res>
 
 /// Create a copy of DartFile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? file = null,Object? actors = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? file = null,Object? aktors = null,}) {
   return _then(_self.copyWith(
 file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
-as File,actors: null == actors ? _self.actors : actors // ignore: cast_nullable_to_non_nullable
-as List<Actor>,
+as File,aktors: null == aktors ? _self.aktors : aktors // ignore: cast_nullable_to_non_nullable
+as List<Aktor>,
   ));
 }
 
@@ -154,11 +154,11 @@ return part(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( File file,  List<Actor> actors)?  main,TResult Function( File mainFile,  File file,  List<Actor> actors)?  part,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( File file,  List<Aktor> aktors)?  main,TResult Function( File mainFile,  File file,  List<Aktor> aktors)?  part,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case MainFile() when main != null:
-return main(_that.file,_that.actors);case PartFile() when part != null:
-return part(_that.mainFile,_that.file,_that.actors);case _:
+return main(_that.file,_that.aktors);case PartFile() when part != null:
+return part(_that.mainFile,_that.file,_that.aktors);case _:
   return orElse();
 
 }
@@ -176,11 +176,11 @@ return part(_that.mainFile,_that.file,_that.actors);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( File file,  List<Actor> actors)  main,required TResult Function( File mainFile,  File file,  List<Actor> actors)  part,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( File file,  List<Aktor> aktors)  main,required TResult Function( File mainFile,  File file,  List<Aktor> aktors)  part,}) {final _that = this;
 switch (_that) {
 case MainFile():
-return main(_that.file,_that.actors);case PartFile():
-return part(_that.mainFile,_that.file,_that.actors);case _:
+return main(_that.file,_that.aktors);case PartFile():
+return part(_that.mainFile,_that.file,_that.aktors);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,11 +197,11 @@ return part(_that.mainFile,_that.file,_that.actors);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( File file,  List<Actor> actors)?  main,TResult? Function( File mainFile,  File file,  List<Actor> actors)?  part,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( File file,  List<Aktor> aktors)?  main,TResult? Function( File mainFile,  File file,  List<Aktor> aktors)?  part,}) {final _that = this;
 switch (_that) {
 case MainFile() when main != null:
-return main(_that.file,_that.actors);case PartFile() when part != null:
-return part(_that.mainFile,_that.file,_that.actors);case _:
+return main(_that.file,_that.aktors);case PartFile() when part != null:
+return part(_that.mainFile,_that.file,_that.aktors);case _:
   return null;
 
 }
@@ -213,15 +213,15 @@ return part(_that.mainFile,_that.file,_that.actors);case _:
 
 
 class MainFile implements DartFile {
-  const MainFile({required this.file, required final  List<Actor> actors}): _actors = actors;
+  const MainFile({required this.file, required final  List<Aktor> aktors}): _aktors = aktors;
   
 
 @override final  File file;
- final  List<Actor> _actors;
-@override List<Actor> get actors {
-  if (_actors is EqualUnmodifiableListView) return _actors;
+ final  List<Aktor> _aktors;
+@override List<Aktor> get aktors {
+  if (_aktors is EqualUnmodifiableListView) return _aktors;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_actors);
+  return EqualUnmodifiableListView(_aktors);
 }
 
 
@@ -235,16 +235,16 @@ $MainFileCopyWith<MainFile> get copyWith => _$MainFileCopyWithImpl<MainFile>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainFile&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other._actors, _actors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is MainFile&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other._aktors, _aktors));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,file,const DeepCollectionEquality().hash(_actors));
+int get hashCode => Object.hash(runtimeType,file,const DeepCollectionEquality().hash(_aktors));
 
 @override
 String toString() {
-  return 'DartFile.main(file: $file, actors: $actors)';
+  return 'DartFile.main(file: $file, aktors: $aktors)';
 }
 
 
@@ -255,7 +255,7 @@ abstract mixin class $MainFileCopyWith<$Res> implements $DartFileCopyWith<$Res> 
   factory $MainFileCopyWith(MainFile value, $Res Function(MainFile) _then) = _$MainFileCopyWithImpl;
 @override @useResult
 $Res call({
- File file, List<Actor> actors
+ File file, List<Aktor> aktors
 });
 
 
@@ -272,11 +272,11 @@ class _$MainFileCopyWithImpl<$Res>
 
 /// Create a copy of DartFile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? file = null,Object? actors = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? file = null,Object? aktors = null,}) {
   return _then(MainFile(
 file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
-as File,actors: null == actors ? _self._actors : actors // ignore: cast_nullable_to_non_nullable
-as List<Actor>,
+as File,aktors: null == aktors ? _self._aktors : aktors // ignore: cast_nullable_to_non_nullable
+as List<Aktor>,
   ));
 }
 
@@ -287,16 +287,16 @@ as List<Actor>,
 
 
 class PartFile implements DartFile {
-  const PartFile({required this.mainFile, required this.file, required final  List<Actor> actors}): _actors = actors;
+  const PartFile({required this.mainFile, required this.file, required final  List<Aktor> aktors}): _aktors = aktors;
   
 
  final  File mainFile;
 @override final  File file;
- final  List<Actor> _actors;
-@override List<Actor> get actors {
-  if (_actors is EqualUnmodifiableListView) return _actors;
+ final  List<Aktor> _aktors;
+@override List<Aktor> get aktors {
+  if (_aktors is EqualUnmodifiableListView) return _aktors;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_actors);
+  return EqualUnmodifiableListView(_aktors);
 }
 
 
@@ -310,16 +310,16 @@ $PartFileCopyWith<PartFile> get copyWith => _$PartFileCopyWithImpl<PartFile>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PartFile&&(identical(other.mainFile, mainFile) || other.mainFile == mainFile)&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other._actors, _actors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PartFile&&(identical(other.mainFile, mainFile) || other.mainFile == mainFile)&&(identical(other.file, file) || other.file == file)&&const DeepCollectionEquality().equals(other._aktors, _aktors));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,mainFile,file,const DeepCollectionEquality().hash(_actors));
+int get hashCode => Object.hash(runtimeType,mainFile,file,const DeepCollectionEquality().hash(_aktors));
 
 @override
 String toString() {
-  return 'DartFile.part(mainFile: $mainFile, file: $file, actors: $actors)';
+  return 'DartFile.part(mainFile: $mainFile, file: $file, aktors: $aktors)';
 }
 
 
@@ -330,7 +330,7 @@ abstract mixin class $PartFileCopyWith<$Res> implements $DartFileCopyWith<$Res> 
   factory $PartFileCopyWith(PartFile value, $Res Function(PartFile) _then) = _$PartFileCopyWithImpl;
 @override @useResult
 $Res call({
- File mainFile, File file, List<Actor> actors
+ File mainFile, File file, List<Aktor> aktors
 });
 
 
@@ -347,12 +347,12 @@ class _$PartFileCopyWithImpl<$Res>
 
 /// Create a copy of DartFile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? mainFile = null,Object? file = null,Object? actors = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? mainFile = null,Object? file = null,Object? aktors = null,}) {
   return _then(PartFile(
 mainFile: null == mainFile ? _self.mainFile : mainFile // ignore: cast_nullable_to_non_nullable
 as File,file: null == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
-as File,actors: null == actors ? _self._actors : actors // ignore: cast_nullable_to_non_nullable
-as List<Actor>,
+as File,aktors: null == aktors ? _self._aktors : aktors // ignore: cast_nullable_to_non_nullable
+as List<Aktor>,
   ));
 }
 

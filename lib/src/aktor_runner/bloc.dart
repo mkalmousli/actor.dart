@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:actor/src/models/actor.dart';
-import 'package:actor/src/models/dart_file.dart';
-import 'package:actor/src/models/mode.dart';
-import 'package:actor/src/const.dart';
-import 'package:actor/src/ext.dart';
+import 'package:aktor/src/models/aktor.dart';
+import 'package:aktor/src/models/dart_file.dart';
+import 'package:aktor/src/models/mode.dart';
+import 'package:aktor/src/const.dart';
+import 'package:aktor/src/ext.dart';
 import 'package:ansi/ansi.dart';
 import 'package:async/async.dart';
 import 'package:bloc/bloc.dart' as bloc;
@@ -14,12 +14,12 @@ import 'package:path/path.dart';
 import 'state.dart' as s;
 import 'event.dart' as e;
 
-/// Manages actor process lifecycle using BLoC pattern.
-class ActorRunner extends bloc.Bloc<e.Event, s.State> {
-  /// Actor configuration.
-  final Actor actor;
+/// Manages aktor process lifecycle using BLoC pattern.
+class AktorRunner extends bloc.Bloc<e.Event, s.State> {
+  /// Aktor configuration.
+  final Aktor aktor;
 
-  /// Dart file containing the actor function.
+  /// Dart file containing the aktor function.
   final DartFile dartFile;
 
   /// Root directory of the Dart project.
@@ -34,9 +34,9 @@ class ActorRunner extends bloc.Bloc<e.Event, s.State> {
   /// Completer for waiting until the process stops.
   Completer<void>? _stopCompleter;
 
-  /// Creates an ActorRunner for the given actor and configuration.
-  ActorRunner({
-    required this.actor,
+  /// Creates an AktorRunner for the given aktor and configuration.
+  AktorRunner({
+    required this.aktor,
     required this.dartFile,
     required this.dRoot,
     required s.State initialState,
@@ -48,41 +48,41 @@ class ActorRunner extends bloc.Bloc<e.Event, s.State> {
             return;
           }
 
-          emit(const s.State.starting());
+          emit( s.State.starting());
 
           try {
             final fRunner = await dRoot
                 .d(".dart_tool")
-                .d("Actor")
+                .d("Aktor")
                 .d(".Runners")
                 .newTempFile(suffix: ".dart");
 
             final fMain = dartFile.when(
-              main: (file, actors) => file,
-              part: (mainFile, file, actors) => mainFile,
+              main: (file, aktors) => file,
+              part: (mainFile, file, aktors) => mainFile,
             );
 
             final b = Buf();
             b.w("import 'dart:io' as _io;");
-            b.w("import '${Const.importPath}' as _actor;");
+            b.w("import '${Const.importPath}' as _aktor;");
             b.w(
               "import '${relative(fMain.path, from: fRunner.parent.path)}' as _method;",
             );
 
-            b.w("const mode = _actor.Mode.${mode.name};");
+            b.w("const mode = _aktor.Mode.${mode.name};");
 
-            if (actor.requireContext) {
-              b.w("final context = _actor.ActorContext(");
-              b.w("mode: _actor.Mode.${mode.name},");
+            if (aktor.requireContext) {
+              b.w("final context = _aktor.AktorContext(");
+              b.w("mode: _aktor.Mode.${mode.name},");
               b.w("file: _io.File('${fMain.path}'),");
               b.w("root: _io.Directory('${dRoot.path}')");
               b.w(");");
             }
 
             b.w("void main() => ");
-            if (actor.isAsync) b.w("await ");
-            b.w("_method.${actor.functionName}(");
-            if (actor.requireContext) b.w("context");
+            if (aktor.isAsync) b.w("await ");
+            b.w("_method.${aktor.functionName}(");
+            if (aktor.requireContext) b.w("context");
             b.w(");");
 
             await fRunner.writeAsString(b.toString());
@@ -107,7 +107,7 @@ class ActorRunner extends bloc.Bloc<e.Event, s.State> {
 
             Future<void> waitForCompletion() async {
               final prefix =
-                  "${relative(dartFile.file.path, from: dRoot.path)}:${actor.lineNumber}:${actor.columnNumber} #${actor.functionName}";
+                  "${relative(dartFile.file.path, from: dRoot.path)}:${aktor.lineNumber}:${aktor.columnNumber} #${aktor.functionName}";
 
               stdout.writeln(blue("$prefix started."));
 

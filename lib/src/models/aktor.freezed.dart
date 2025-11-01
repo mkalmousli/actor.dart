@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'actor.dart';
+part of 'aktor.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,35 +12,25 @@ part of 'actor.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$Actor {
+mixin _$Aktor {
 
-///
-/// The function name.
-///
- String get functionName;///
-/// The line number where the function is located on.
-///
- int get lineNumber;///
-/// The column number where the function is located on.
-///
- int get columnNumber;///
-/// Whether the method is asynchronous.
-///
- bool get isAsync;///
-/// Whether the method requires a context.
-///
+/// Function name.
+ String get functionName;/// Line number where the function is located.
+ int get lineNumber;/// Column number where the function is located.
+ int get columnNumber;/// Whether the method is asynchronous.
+ bool get isAsync;/// Whether the method requires a context.
  bool get requireContext;
-/// Create a copy of Actor
+/// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ActorCopyWith<Actor> get copyWith => _$ActorCopyWithImpl<Actor>(this as Actor, _$identity);
+$AktorCopyWith<Aktor> get copyWith => _$AktorCopyWithImpl<Aktor>(this as Aktor, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Actor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
 }
 
 
@@ -49,15 +39,15 @@ int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber
 
 @override
 String toString() {
-  return 'Actor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
+  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $ActorCopyWith<$Res>  {
-  factory $ActorCopyWith(Actor value, $Res Function(Actor) _then) = _$ActorCopyWithImpl;
+abstract mixin class $AktorCopyWith<$Res>  {
+  factory $AktorCopyWith(Aktor value, $Res Function(Aktor) _then) = _$AktorCopyWithImpl;
 @useResult
 $Res call({
  String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext
@@ -68,14 +58,14 @@ $Res call({
 
 }
 /// @nodoc
-class _$ActorCopyWithImpl<$Res>
-    implements $ActorCopyWith<$Res> {
-  _$ActorCopyWithImpl(this._self, this._then);
+class _$AktorCopyWithImpl<$Res>
+    implements $AktorCopyWith<$Res> {
+  _$AktorCopyWithImpl(this._self, this._then);
 
-  final Actor _self;
-  final $Res Function(Actor) _then;
+  final Aktor _self;
+  final $Res Function(Aktor) _then;
 
-/// Create a copy of Actor
+/// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') @override $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,}) {
   return _then(_self.copyWith(
@@ -91,8 +81,8 @@ as bool,
 }
 
 
-/// Adds pattern-matching-related methods to [Actor].
-extension ActorPatterns on Actor {
+/// Adds pattern-matching-related methods to [Aktor].
+extension AktorPatterns on Aktor {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -105,10 +95,10 @@ extension ActorPatterns on Actor {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Actor value)?  $default,{required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _Aktor value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Actor() when $default != null:
+case _Aktor() when $default != null:
 return $default(_that);case _:
   return orElse();
 
@@ -127,10 +117,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Actor value)  $default,){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _Aktor value)  $default,){
 final _that = this;
 switch (_that) {
-case _Actor():
+case _Aktor():
 return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -148,10 +138,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Actor value)?  $default,){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _Aktor value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Actor() when $default != null:
+case _Aktor() when $default != null:
 return $default(_that);case _:
   return null;
 
@@ -171,7 +161,7 @@ return $default(_that);case _:
 
 @optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Actor() when $default != null:
+case _Aktor() when $default != null:
 return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
   return orElse();
 
@@ -192,7 +182,7 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 
 @optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)  $default,) {final _that = this;
 switch (_that) {
-case _Actor():
+case _Aktor():
 return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
   throw StateError('Unexpected subclass');
 
@@ -212,7 +202,7 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 
 @optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)?  $default,) {final _that = this;
 switch (_that) {
-case _Actor() when $default != null:
+case _Aktor() when $default != null:
 return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
   return null;
 
@@ -224,42 +214,32 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 /// @nodoc
 
 
-class _Actor implements Actor {
-  const _Actor({required this.functionName, required this.lineNumber, required this.columnNumber, this.isAsync = false, this.requireContext = false});
+class _Aktor implements Aktor {
+  const _Aktor({required this.functionName, required this.lineNumber, required this.columnNumber, this.isAsync = false, this.requireContext = false});
   
 
-///
-/// The function name.
-///
+/// Function name.
 @override final  String functionName;
-///
-/// The line number where the function is located on.
-///
+/// Line number where the function is located.
 @override final  int lineNumber;
-///
-/// The column number where the function is located on.
-///
+/// Column number where the function is located.
 @override final  int columnNumber;
-///
 /// Whether the method is asynchronous.
-///
 @override@JsonKey() final  bool isAsync;
-///
 /// Whether the method requires a context.
-///
 @override@JsonKey() final  bool requireContext;
 
-/// Create a copy of Actor
+/// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
 @override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ActorCopyWith<_Actor> get copyWith => __$ActorCopyWithImpl<_Actor>(this, _$identity);
+_$AktorCopyWith<_Aktor> get copyWith => __$AktorCopyWithImpl<_Aktor>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Actor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
 }
 
 
@@ -268,15 +248,15 @@ int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber
 
 @override
 String toString() {
-  return 'Actor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
+  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ActorCopyWith<$Res> implements $ActorCopyWith<$Res> {
-  factory _$ActorCopyWith(_Actor value, $Res Function(_Actor) _then) = __$ActorCopyWithImpl;
+abstract mixin class _$AktorCopyWith<$Res> implements $AktorCopyWith<$Res> {
+  factory _$AktorCopyWith(_Aktor value, $Res Function(_Aktor) _then) = __$AktorCopyWithImpl;
 @override @useResult
 $Res call({
  String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext
@@ -287,17 +267,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ActorCopyWithImpl<$Res>
-    implements _$ActorCopyWith<$Res> {
-  __$ActorCopyWithImpl(this._self, this._then);
+class __$AktorCopyWithImpl<$Res>
+    implements _$AktorCopyWith<$Res> {
+  __$AktorCopyWithImpl(this._self, this._then);
 
-  final _Actor _self;
-  final $Res Function(_Actor) _then;
+  final _Aktor _self;
+  final $Res Function(_Aktor) _then;
 
-/// Create a copy of Actor
+/// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,}) {
-  return _then(_Actor(
+  return _then(_Aktor(
 functionName: null == functionName ? _self.functionName : functionName // ignore: cast_nullable_to_non_nullable
 as String,lineNumber: null == lineNumber ? _self.lineNumber : lineNumber // ignore: cast_nullable_to_non_nullable
 as int,columnNumber: null == columnNumber ? _self.columnNumber : columnNumber // ignore: cast_nullable_to_non_nullable

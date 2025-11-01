@@ -1,8 +1,8 @@
-/// Execution mode for actors.
+/// Execution mode for aktor.
 enum Mode {
-  /// Production mode - actors run once and exit.
+  /// Production mode - aktor run once and exit.
   prod,
 
-  /// Development mode - actors are watched and restart on file changes.
+  /// Development mode - aktor are watched and restart on file changes.
   dev,
 }

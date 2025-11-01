@@ -1,10 +1,10 @@
-import 'package:actor/actor.dart';
-import 'package:actor/src/ext.dart';
+import 'package:aktor/aktor.dart';
+import 'package:aktor/src/ext.dart';
 import 'package:path/path.dart';
 import 'package:pubspec_yaml/pubspec_yaml.dart';
 
 /// Read the version from the pubspec.yaml file and save it to the version.dart file.
-@actor
+@aktor
 Future<void> writeVersion(C c) async {
   final fPubspec = c.root.f("pubspec.yaml");
 
