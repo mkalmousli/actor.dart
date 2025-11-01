@@ -35,32 +35,65 @@ Future<int> runCli(List<String> args) async {
   }
 
   stdout.w(white("aktor v$version | "));
-  stdout.w(blue("${mode.name} mode"));
+  stdout.w(cyan("${mode.name} mode"));
   stdout.nl();
 
   final dCurrent = Directory.current;
 
-  final Directory dInput;
+  /// Determines the input (either a file or directory) to process.
+  final FileSystemEntity input;
   if (pathArgs.isEmpty) {
-    dInput = dCurrent;
+    input = dCurrent;
   } else {
-    dInput = Directory(pathArgs.first);
+    final pathArg = pathArgs.first;
+    final entity = FileSystemEntity.typeSync(pathArg);
+    if (entity == FileSystemEntityType.file) {
+      input = File(pathArg);
+    } else if (entity == FileSystemEntityType.directory) {
+      input = Directory(pathArg);
+    } else if (entity == FileSystemEntityType.notFound) {
+      // Try to determine if it's meant to be a file or directory
+      // If it ends with .dart, treat as file; otherwise, treat as directory
+      if (pathArg.endsWith(".dart")) {
+        input = File(pathArg);
+      } else {
+        input = Directory(pathArg);
+      }
+    } else {
+      // Fallback to directory
+      input = Directory(pathArg);
+    }
+  }
+
+  stdout.l(grey("in: ${input.path}"));
+
+  /// Get the starting directory from the input for root detection.
+  final Directory dStart;
+  if (input is Directory) {
+    dStart = input;
+  } else {
+    dStart = input.parent;
   }
 
   final Directory dRoot = await () async {
-    Directory dir = dCurrent;
+    Directory dir = dStart;
 
     while (true) {
       if (await dir.f("pubspec.yaml").exists()) {
         return dir;
       }
 
-      dir = dir.parent;
-      if (dir.path == dCurrent.path) break;
+      final parent = dir.parent;
+      // Stop if we've reached the filesystem root (parent path equals current path)
+      if (parent.path == dir.path) break;
+      dir = parent;
+      dir = await dir.resolveSymbolicLinks().then((v) => v.dir);
     }
 
     throw Exception("Couldn't find root package folder!");
   }();
+
+  stdout.l(grey("root: ${dRoot.path}"));
 
   /// Recursively scans for Dart files, ignoring build directories.
   Stream<File> getInputFiles(Directory dir) async* {
@@ -77,6 +110,19 @@ Future<int> runCli(List<String> args) async {
         ].any((name) => entity.name == name);
         if (isExcluded) continue;
 
+        yield* getInputFiles(entity);
+      }
+    }
+  }
+
+  /// Gets all Dart files from a file system entity (file or directory).
+  Stream<File> getDartFilesFromEntity(FileSystemEntity entity) async* {
+    if (entity is File) {
+      if (entity.path.endsWith(".dart") && await entity.exists()) {
+        yield entity;
+      }
+    } else if (entity is Directory) {
+      if (await entity.exists()) {
         yield* getInputFiles(entity);
       }
     }
@@ -144,9 +190,6 @@ Future<int> runCli(List<String> args) async {
                       fileWatcherRunners[depPath]?.toList() ?? [];
                   for (final runnerToRestart in runnersToRestart) {
                     // Cancel any pending restart for this runner
-                    final hadPending = pendingRestarts.containsKey(
-                      runnerToRestart,
-                    );
                     pendingRestarts[runnerToRestart]?.cancel();
 
                     // Debounce: wait 200ms before restarting
@@ -340,7 +383,7 @@ Future<int> runCli(List<String> args) async {
 
   int iCycle = 0;
 
-  /// Processes all Dart files in the input directory.
+  /// Processes all Dart files from the input (file or directory).
   Future<void> processFiles() async {
     iCycle += 1;
     final isFirstCycle = iCycle == 1;
@@ -352,7 +395,7 @@ Future<int> runCli(List<String> args) async {
     // Clear asset reader cache to ensure fresh reads
     assetReader.clearCache();
 
-    await for (final file in getInputFiles(dInput)) {
+    await for (final file in getDartFilesFromEntity(input)) {
       DartFile? dartFile;
       try {
         dartFile = await DartFile.parse(file, assetReader);
@@ -370,8 +413,18 @@ Future<int> runCli(List<String> args) async {
   await processFiles();
 
   if (mode == Mode.dev) {
-    await for (final _ in dInput.watch()) {
-      await processFiles();
+    // Watch the input directory or parent directory of input file
+    final Directory directoryToWatch;
+    if (input is Directory) {
+      directoryToWatch = input;
+    } else {
+      directoryToWatch = (input as File).parent;
+    }
+
+    if (await directoryToWatch.exists()) {
+      await for (final _ in directoryToWatch.watch()) {
+        await processFiles();
+      }
     }
   }
 

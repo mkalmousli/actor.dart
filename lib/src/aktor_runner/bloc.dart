@@ -123,9 +123,9 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
                 stdout.writeln(magenta("* ${aktor.functionName}"));
               } else {
                 final prefix =
-                    "${blue(aktor.functionName)}${aktor.isLive ? magenta("*") : ""}${aktor.requireContext ? yellow("#") : ""}";
+                    "${cyan(aktor.functionName)}${aktor.isLive ? magenta("*") : ""}${aktor.requireContext ? yellow("#") : ""}";
 
-                stdout.writeln(blue("+ $prefix"));
+                stdout.writeln("${cyan("+")} $prefix");
               }
 
               final stream = StreamGroup.merge([
@@ -148,7 +148,7 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
                   );
                   for (var line in lines) {
                     line = "  ${aktor.functionName} $line";
-                    stdout.writeln(type == 0 ? yellow(line) : red(line));
+                    stdout.writeln(type == 0 ? grey(line) : red(line));
                   }
                 }
               }

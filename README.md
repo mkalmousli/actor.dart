@@ -4,7 +4,6 @@
 
 > "*Make code work for you*"
 
-
 A simple tool that solves [Dart](https://dart.dev/)'s lack of metaprogramming features.
 
 Perfect for building scripts, background jobs, scheduled tasks, and development utilities like **code generation**, **data processing**, and more.
@@ -15,6 +14,7 @@ Here is a extremely simple aktor:
 ```dart
 import 'package:aktor/aktor.dart';
 
+@live
 @aktor
 Future<void> sayHello() async {
     print("Hello, world!");
@@ -23,8 +23,17 @@ Future<void> sayHello() async {
 
 Here is how to run it:
 ```bash
-dart run aktor
+dart run aktor --dev
 ```
+
+Now, change the code and see the aktor restart!
+
+Here is a recorded demo:
+
+<a href="https://asciinema.org/a/753074">
+  <img src="https://asciinema.org/a/753074.svg" width="300">
+</a>
+
 
 ## Why?
 
@@ -118,7 +127,35 @@ The context provides:
 - `root`: The root directory of the Dart project
 - `dir`: Convenience getter for the file's directory
 
+### Live Aktors (Auto-Reload)
+
+Aktors can be marked with the `@live` annotation to enable **automatic dependency-based reloading** in development mode. When a live aktor's dependencies (imported files, parts, etc.) change, it automatically restarts:
+
+```dart
+@aktor
+@live
+Future<void> myServer(C c) async {
+  // This aktor will automatically restart when any imported file changes
+  print("Server running...");
+}
+```
+
+**How it works:**
+- Live aktors are marked with a `*` in the CLI output
+- The tool automatically tracks all dependencies (imports, parts, etc.) of live aktors
+- When any dependency file changes, the live aktor is automatically restarted
+- Debounced to handle rapid file changes efficiently (200ms delay)
+- Only works in development mode (`--dev`)
+
+Perfect for:
+- Long-running services and servers
+- File watchers and monitors
+- Development utilities that need to stay running
+- Any aktor that should react to dependency changes
+
 ### Command Line Options
+
+The CLI provides an improved experience with color-coded output, status indicators, and smart path handling:
 
 ```bash
 # Run in production mode (default)
@@ -127,7 +164,12 @@ aktor [directory]
 # Run in development mode (watch for changes)
 aktor --dev [directory]
 aktor -d [directory]
+
+# Show version
+aktor --version
+aktor -v
 ```
+
 
 ### Execution Modes
 
@@ -172,6 +214,7 @@ In development mode, the tool also:
 - Re-evaluates aktors when files are modified
 - Automatically starts new aktors and stops removed ones
 - Maintains running aktors across file changes
+- **Live aktors** (`@live`) automatically restart when their dependencies change
 
 ## Project Structure
 
