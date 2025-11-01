@@ -27,8 +27,8 @@
        id="filter3865"
        inkscape:collect="always"
        color-interpolation-filters="sRGB"
-       x="-0.052269731"
-       y="-0.077122748"
+       x="-0.052269732"
+       y="-0.07712275"
        width="1.0914769"
        height="1.1421058">
       <feGaussianBlur
@@ -41,8 +41,8 @@
        height="1.7445161"
        width="1.0986325"
        color-interpolation-filters="sRGB"
-       y="-0.37225807"
-       x="-0.049316239"
+       y="-0.37225806"
+       x="-0.049316238"
        inkscape:collect="always">
       <feGaussianBlur
          id="feGaussianBlur3919"
@@ -53,26 +53,26 @@
   <sodipodi:namedview
      id="base"
      fit-margin-left="0"
-     inkscape:zoom="1"
+     inkscape:zoom="0.5"
      borderopacity="1.0"
-     inkscape:current-layer="layer1"
-     inkscape:cx="52"
-     inkscape:cy="231"
-     inkscape:window-maximized="1"
+     inkscape:current-layer="g3023"
+     inkscape:cx="-146"
+     inkscape:cy="33"
+     inkscape:window-maximized="0"
      showgrid="false"
      fit-margin-right="0"
      showguides="true"
      bordercolor="#666666"
-     inkscape:window-x="1920"
+     inkscape:window-x="2111"
      inkscape:guide-bbox="true"
      inkscape:window-y="0"
      fit-margin-bottom="0"
-     inkscape:window-width="1680"
+     inkscape:window-width="1390"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      pagecolor="#ffffff"
      inkscape:document-units="px"
-     inkscape:window-height="1027"
+     inkscape:window-height="1050"
      fit-margin-top="0"
      inkscape:showpageshadow="2"
      inkscape:pagecheckerboard="0"
@@ -99,20 +99,26 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      transform="translate(-107.75,-327.36)">
-    <path
+    <ellipse
        id="path3871"
-       style="fill:#666666;stroke:#ffffff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:url(#filter3917)"
+       style="color:#000000;fill:#666666;stroke:#ffffff;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:url(#filter3917)"
        transform="matrix(1.1608095,0,0,1.022867,137.88459,378.44485)"
-       d="m 265,244.49998 a 117,15.5 0 0 1 -117,15.5 117,15.5 0 0 1 -117,-15.5 117,15.5 0 0 1 117,-15.5 117,15.5 0 0 1 117,15.5 z" />
+       cx="148"
+       cy="244.49998"
+       rx="117"
+       ry="15.5" />
     <g
        id="g3009"
        style="fill:#4d4d4d"
        transform="matrix(0.95823833,0,0,1.0282219,64.904893,40.595607)">
-      <path
+      <ellipse
          id="path2999"
-         style="stroke:#000000;stroke-width:2"
+         style="color:#000000;fill:#4d4d4d;stroke:#000000;stroke-width:2"
          transform="matrix(0.95374,0,0,1.0781,11.565,-40.738)"
-         d="m 380,457.36218 a 130,115 0 0 1 -130,115 130,115 0 0 1 -130,-115 130,115 0 0 1 130,-115 130,115 0 0 1 130,115 z" />
+         cx="250"
+         cy="457.36218"
+         rx="130"
+         ry="115" />
       <g
          id="g3001"
          style="fill:#4d4d4d">
@@ -209,14 +215,17 @@
          style="fill:none;stroke:#000000;stroke-width:1px"
          inkscape:connector-curvature="0" />
     </g>
-    <path
+    <ellipse
        id="path3021"
-       style="fill:#cccccc;stroke:#000000;stroke-width:4.03722"
-       d="M 407.94132,505.69208 A 118.80814,127.47681 0 0 1 289.13318,633.16888 118.80814,127.47681 0 0 1 170.32504,505.69208 118.80814,127.47681 0 0 1 289.13318,378.21527 118.80814,127.47681 0 0 1 407.94132,505.69208 Z" />
+       style="color:#000000;fill:#cccccc;stroke:#000000;stroke-width:4.03722"
+       cx="289.13318"
+       cy="505.69208"
+       rx="118.80814"
+       ry="127.47681" />
     <g
        id="g3023"
        style="fill:#666666"
-       transform="matrix(0.95823833,0,0,1.0282219,49.573049,40.595607)">
+       transform="matrix(0.95823833,0,0,1.0282219,51.307669,39.759913)">
       <path
          id="path3025"
          style="fill:#666666;stroke:#000000;stroke-width:1px"
@@ -264,10 +273,13 @@
          inkscape:connector-curvature="0"
          style="fill:#666666;stroke:#000000;stroke-width:1px" />
     </g>
-    <path
+    <ellipse
        id="path3037"
-       style="stroke:#000000;stroke-width:4.03722;stroke-linecap:round;stroke-linejoin:round"
-       d="m 293.92419,505.72412 a 4.7911911,5.1411095 0 0 1 -4.79119,5.14111 4.7911911,5.1411095 0 0 1 -4.7912,-5.14111 4.7911911,5.1411095 0 0 1 4.7912,-5.14111 4.7911911,5.1411095 0 0 1 4.79119,5.14111 z" />
+       style="color:#000000;fill:#000000;stroke:#000000;stroke-width:4.03722;stroke-linecap:round;stroke-linejoin:round"
+       cx="289.133"
+       cy="505.72412"
+       rx="4.7911911"
+       ry="5.1411095" />
     <path
        id="path3079"
        style="fill:none;stroke:#ffffff;stroke-width:4;filter:url(#filter3865)"
@@ -275,26 +287,17 @@
        sodipodi:nodetypes="cssc"
        inkscape:connector-curvature="0"
        transform="matrix(0.95823833,0,0,1.0282219,169.35308,377.19093)" />
-    <g
-       aria-label="Aktor"
-       id="text657"
-       style="font-size:168.692px;font-family:'Joti One';-inkscape-font-specification:'Joti One, Normal';fill:#808080;fill-rule:evenodd;stroke:#000000;stroke-width:4.99505">
-      <path
-         d="m 167.89964,787.3253 -16.8692,-2.53038 31.54541,-112.18018 40.82346,2.53038 21.92996,109.6498 -15.18228,2.53038 -11.63975,-28.00287 -44.87207,3.71122 z m 46.89638,-36.94355 -23.44819,-56.51182 h -1.34954 l -13.32666,56.17444 z"
-         id="path428" />
-      <path
-         d="m 274.17559,787.3253 -8.60329,-117.74702 36.10009,-5.56683 -6.4103,72.87494 35.9314,-42.51038 11.30237,8.77198 -26.14726,27.32811 36.60616,54.65621 -32.05148,2.19299 -21.0865,-39.47393 -6.07291,5.73553 -2.86777,32.22017 z"
-         id="path430" />
-      <path
-         d="m 380.11411,787.3253 -7.25376,-68.15157 -15.51966,2.193 -1.01215,-17.37528 14.84489,-0.67476 -2.53038,-23.61688 42.00431,-5.56684 -3.37384,27.3281 16.70051,-0.84346 -0.50608,11.30237 -17.88135,2.53038 -8.77198,71.35671 z"
-         id="path432" />
-      <path
-         d="m 468.33986,788.84353 q -11.97713,0 -20.41173,-2.86776 -8.26591,-2.69908 -13.49536,-6.91638 -1.34954,-6.74768 -2.02431,-12.98928 -0.50607,-6.4103 -0.50607,-12.31452 0,-11.80844 3.37384,-21.92996 3.54253,-10.12152 8.60329,-17.88135 5.22945,-7.92852 10.6276,-12.98928 5.39814,-5.22945 9.10937,-7.08507 7.59114,3.87992 15.01358,9.44676 7.42245,5.56683 13.49536,12.98928 6.24161,7.42245 9.95283,16.70051 3.71123,9.27806 3.71123,20.74911 0,11.63975 -3.20515,19.39958 -3.20515,7.75984 -11.30237,11.63975 -8.09721,4.04861 -22.94211,4.04861 z m -9.10937,-14.6762 q 6.4103,0 12.8206,-0.84346 6.57898,-1.01216 11.47105,-2.69908 1.34954,-5.39814 2.02431,-10.79628 0.67476,-5.39815 0.67476,-10.6276 0,-16.02574 -6.74768,-29.35241 -9.44675,4.89207 -16.7005,13.66405 -7.25376,8.6033 -11.47106,19.0622 -4.04861,10.29021 -4.04861,20.58042 5.39814,1.01216 11.97713,1.01216 z"
-         id="path434" />
-      <path
-         d="m 533.79238,787.3253 -8.60329,-83.67123 36.10008,-5.56684 -3.37384,26.99072 h 1.18085 q 6.41029,-14.00143 15.18228,-21.92996 8.94067,-8.09721 19.23089,-8.94067 l -4.72338,35.93139 q -2.69907,-0.33738 -5.22945,-0.50607 -2.36169,-0.33739 -4.72338,-0.33739 -7.25375,0 -12.48321,3.20515 -5.06076,3.20515 -8.4346,11.47106 -3.20514,8.09721 -5.06076,22.77342 l -2.36168,19.06219 z"
-         id="path436" />
-    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:168.692px;font-family:'Joti One';-inkscape-font-specification:'Joti One, Normal';fill:#808080;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:4.99505;stroke-dasharray:none;stroke-opacity:1"
+       x="145.96968"
+       y="784.79492"
+       id="text657"><tspan
+         sodipodi:role="line"
+         id="tspan655"
+         x="145.96968"
+         y="784.79492"
+         style="fill:#808080;fill-opacity:1;stroke:#000000;stroke-width:4.99505;stroke-dasharray:none;stroke-opacity:1">Aktor</tspan></text>
   </g>
   <metadata
      id="metadata343">

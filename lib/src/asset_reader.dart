@@ -14,4 +14,9 @@ class AssetReader {
     }
     return value;
   }
+
+  /// Clears the cache.
+  void clearCache() {
+    _cache.clear();
+  }
 }

@@ -19,5 +19,8 @@ abstract class Aktor with _$Aktor {
 
     /// Whether the method requires a context.
     @Default(false) bool requireContext,
+
+    /// Whether the aktor is marked with @live annotation.
+    @Default(false) bool isLive,
   }) = _Aktor;
 }

@@ -6,7 +6,7 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         // Dart
-        "**/.dart_tool": true,
+        // "**/.dart_tool": true,
         "**/.pub": true,
         // Freezed
         "**/*.freezed.dart": true,

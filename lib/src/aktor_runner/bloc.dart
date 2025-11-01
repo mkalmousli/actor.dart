@@ -25,6 +25,9 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
   /// Root directory of the Dart project.
   final Directory dRoot;
 
+  /// Whether this is a reload (used to suppress "started" message).
+  final bool isReload;
+
   /// Future that completes when the process exits or runner file is deleted.
   Future<void>? _completionFuture;
 
@@ -40,6 +43,7 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
     required this.dartFile,
     required this.dRoot,
     required s.State initialState,
+    this.isReload = false,
   }) : super(initialState) {
     on<e.Event>(
       (event, emit) => event.when<void>(
@@ -48,14 +52,17 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
             return;
           }
 
-          emit( s.State.starting());
+          emit(s.State.starting());
 
           try {
             final fRunner = await dRoot
                 .d(".dart_tool")
                 .d("Aktor")
                 .d(".Runners")
-                .newTempFile(suffix: ".dart");
+                .newTempFile(
+                  prefix: DateTime.now().microsecondsSinceEpoch.toString(),
+                  suffix: ".dart",
+                );
 
             final fMain = dartFile.when(
               main: (file, aktors) => file,
@@ -109,7 +116,10 @@ class AktorRunner extends bloc.Bloc<e.Event, s.State> {
               final prefix =
                   "${relative(dartFile.file.path, from: dRoot.path)}:${aktor.lineNumber}:${aktor.columnNumber} #${aktor.functionName}";
 
-              stdout.writeln(blue("$prefix started."));
+              // Only print "started" if not a reload (reloads are logged elsewhere)
+              if (!isReload) {
+                stdout.writeln(blue("$prefix started."));
+              }
 
               final lines = LineSplitter()
                   .bind(

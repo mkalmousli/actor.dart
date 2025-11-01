@@ -19,7 +19,8 @@ mixin _$Aktor {
  int get lineNumber;/// Column number where the function is located.
  int get columnNumber;/// Whether the method is asynchronous.
  bool get isAsync;/// Whether the method requires a context.
- bool get requireContext;
+ bool get requireContext;/// Whether the aktor is marked with @live annotation.
+ bool get isLive;
 /// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -30,16 +31,16 @@ $AktorCopyWith<Aktor> get copyWith => _$AktorCopyWithImpl<Aktor>(this as Aktor, 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext)&&(identical(other.isLive, isLive) || other.isLive == isLive));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber,isAsync,requireContext);
+int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber,isAsync,requireContext,isLive);
 
 @override
 String toString() {
-  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
+  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext, isLive: $isLive)';
 }
 
 
@@ -50,7 +51,7 @@ abstract mixin class $AktorCopyWith<$Res>  {
   factory $AktorCopyWith(Aktor value, $Res Function(Aktor) _then) = _$AktorCopyWithImpl;
 @useResult
 $Res call({
- String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext
+ String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext, bool isLive
 });
 
 
@@ -67,13 +68,14 @@ class _$AktorCopyWithImpl<$Res>
 
 /// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,Object? isLive = null,}) {
   return _then(_self.copyWith(
 functionName: null == functionName ? _self.functionName : functionName // ignore: cast_nullable_to_non_nullable
 as String,lineNumber: null == lineNumber ? _self.lineNumber : lineNumber // ignore: cast_nullable_to_non_nullable
 as int,columnNumber: null == columnNumber ? _self.columnNumber : columnNumber // ignore: cast_nullable_to_non_nullable
 as int,isAsync: null == isAsync ? _self.isAsync : isAsync // ignore: cast_nullable_to_non_nullable
 as bool,requireContext: null == requireContext ? _self.requireContext : requireContext // ignore: cast_nullable_to_non_nullable
+as bool,isLive: null == isLive ? _self.isLive : isLive // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -159,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext,  bool isLive)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Aktor() when $default != null:
-return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
+return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext,_that.isLive);case _:
   return orElse();
 
 }
@@ -180,10 +182,10 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext,  bool isLive)  $default,) {final _that = this;
 switch (_that) {
 case _Aktor():
-return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
+return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext,_that.isLive);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +202,10 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String functionName,  int lineNumber,  int columnNumber,  bool isAsync,  bool requireContext,  bool isLive)?  $default,) {final _that = this;
 switch (_that) {
 case _Aktor() when $default != null:
-return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext);case _:
+return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isAsync,_that.requireContext,_that.isLive);case _:
   return null;
 
 }
@@ -215,7 +217,7 @@ return $default(_that.functionName,_that.lineNumber,_that.columnNumber,_that.isA
 
 
 class _Aktor implements Aktor {
-  const _Aktor({required this.functionName, required this.lineNumber, required this.columnNumber, this.isAsync = false, this.requireContext = false});
+  const _Aktor({required this.functionName, required this.lineNumber, required this.columnNumber, this.isAsync = false, this.requireContext = false, this.isLive = false});
   
 
 /// Function name.
@@ -228,6 +230,8 @@ class _Aktor implements Aktor {
 @override@JsonKey() final  bool isAsync;
 /// Whether the method requires a context.
 @override@JsonKey() final  bool requireContext;
+/// Whether the aktor is marked with @live annotation.
+@override@JsonKey() final  bool isLive;
 
 /// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
@@ -239,16 +243,16 @@ _$AktorCopyWith<_Aktor> get copyWith => __$AktorCopyWithImpl<_Aktor>(this, _$ide
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Aktor&&(identical(other.functionName, functionName) || other.functionName == functionName)&&(identical(other.lineNumber, lineNumber) || other.lineNumber == lineNumber)&&(identical(other.columnNumber, columnNumber) || other.columnNumber == columnNumber)&&(identical(other.isAsync, isAsync) || other.isAsync == isAsync)&&(identical(other.requireContext, requireContext) || other.requireContext == requireContext)&&(identical(other.isLive, isLive) || other.isLive == isLive));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber,isAsync,requireContext);
+int get hashCode => Object.hash(runtimeType,functionName,lineNumber,columnNumber,isAsync,requireContext,isLive);
 
 @override
 String toString() {
-  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext)';
+  return 'Aktor(functionName: $functionName, lineNumber: $lineNumber, columnNumber: $columnNumber, isAsync: $isAsync, requireContext: $requireContext, isLive: $isLive)';
 }
 
 
@@ -259,7 +263,7 @@ abstract mixin class _$AktorCopyWith<$Res> implements $AktorCopyWith<$Res> {
   factory _$AktorCopyWith(_Aktor value, $Res Function(_Aktor) _then) = __$AktorCopyWithImpl;
 @override @useResult
 $Res call({
- String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext
+ String functionName, int lineNumber, int columnNumber, bool isAsync, bool requireContext, bool isLive
 });
 
 
@@ -276,13 +280,14 @@ class __$AktorCopyWithImpl<$Res>
 
 /// Create a copy of Aktor
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? functionName = null,Object? lineNumber = null,Object? columnNumber = null,Object? isAsync = null,Object? requireContext = null,Object? isLive = null,}) {
   return _then(_Aktor(
 functionName: null == functionName ? _self.functionName : functionName // ignore: cast_nullable_to_non_nullable
 as String,lineNumber: null == lineNumber ? _self.lineNumber : lineNumber // ignore: cast_nullable_to_non_nullable
 as int,columnNumber: null == columnNumber ? _self.columnNumber : columnNumber // ignore: cast_nullable_to_non_nullable
 as int,isAsync: null == isAsync ? _self.isAsync : isAsync // ignore: cast_nullable_to_non_nullable
 as bool,requireContext: null == requireContext ? _self.requireContext : requireContext // ignore: cast_nullable_to_non_nullable
+as bool,isLive: null == isLive ? _self.isLive : isLive // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

@@ -7,6 +7,7 @@ import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:collection/collection.dart';
 import 'package:aktor/src/models/aktor.dart';
+import 'package:path/path.dart' as p;
 
 part 'dart_file.freezed.dart';
 
@@ -96,6 +97,90 @@ extension DartFileX on DartFile {
     main: (file, aktors) => aktors,
     part: (mainFile, file, aktors) => aktors,
   );
+
+  /// Main file for both main and part files.
+  File get mainFile => when(
+    main: (file, aktors) => file,
+    part: (mainFile, file, aktors) => mainFile,
+  );
+
+  /// Extracts all dependency file paths (imports, parts, part ofs) from this Dart file.
+  /// Returns a set of file paths that this file depends on.
+  Future<Set<String>> getDependencies(AssetReader assetReader) async {
+    final mainFile = this.mainFile;
+    final fileContent = await assetReader.read(mainFile.path);
+    final parseResult = parseString(content: fileContent, path: mainFile.path);
+    final ast = parseResult.unit;
+
+    final dependencies = <String>{};
+    dependencies.add(mainFile.path);
+
+    final mainFileDir = mainFile.parent.path;
+
+    // Helper to resolve URI relative to main file
+    Future<File?> resolveUri(String uriString) async {
+      if (uriString.isEmpty) return null;
+
+      // Skip package and dart: imports
+      if (uriString.startsWith('package:') || uriString.startsWith('dart:')) {
+        return null;
+      }
+
+      try {
+        // Resolve relative to main file's directory
+        final resolvedPath = p.normalize(p.join(mainFileDir, uriString));
+        var file = File(resolvedPath);
+
+        // Handle .dart extension if not present
+        if (!resolvedPath.endsWith('.dart')) {
+          file = File('$resolvedPath.dart');
+        }
+
+        final resolved = await file.resolveSymbolicLinks();
+        final resolvedFile = File(resolved);
+
+        if (await resolvedFile.exists()) {
+          return resolvedFile;
+        }
+      } catch (_) {
+        // Skip if URI cannot be resolved
+      }
+
+      return null;
+    }
+
+    // Add part files
+    final parts = ast.directives.whereType<PartDirective>();
+    for (final part in parts) {
+      final uriString = part.uri.stringValue ?? '';
+      final partFile = await resolveUri(uriString);
+      if (partFile != null) {
+        dependencies.add(partFile.path);
+      }
+    }
+
+    // Add imports (only relative imports, skip packages)
+    final imports = ast.directives.whereType<ImportDirective>();
+    for (final import in imports) {
+      final uriString = import.uri.stringValue ?? '';
+      final importFile = await resolveUri(uriString);
+      if (importFile != null) {
+        dependencies.add(importFile.path);
+      }
+    }
+
+    // Add part of file if this is a part
+    final partOfs = ast.directives.whereType<PartOfDirective>();
+    for (final partOf in partOfs) {
+      final uriString = partOf.uri?.stringValue ?? '';
+      final partOfFile = await resolveUri(uriString);
+      if (partOfFile != null) {
+        dependencies.add(partOfFile.path);
+      }
+    }
+
+    return dependencies;
+  }
 }
 
 extension CompilationUnitX on CompilationUnit {
@@ -104,6 +189,11 @@ extension CompilationUnitX on CompilationUnit {
     final expectedAnnoName = switch (prefix) {
       null => Const.annotationName,
       String v => "$v.${Const.annotationName}",
+    };
+
+    final expectedLiveAnnoName = switch (prefix) {
+      null => "live",
+      String v => "$v.live",
     };
 
     final methods = declarations.whereType<FunctionDeclaration>();
@@ -134,6 +224,16 @@ extension CompilationUnitX on CompilationUnit {
       final requireContext =
           (method.functionExpression.parameters?.parameters.length ?? 0) >= 1;
 
+      // Check for @live annotation
+      bool isLive = false;
+      for (final annotation in method.metadata) {
+        final name = annotation.name.name;
+        if (name == expectedLiveAnnoName) {
+          isLive = true;
+          break;
+        }
+      }
+
       final offset = method.returnType?.offset ?? 0;
 
       final lineNumber = fileContent.substring(0, offset).split('\n').length;
@@ -144,6 +244,7 @@ extension CompilationUnitX on CompilationUnit {
         functionName: methodName,
         isAsync: isAsync,
         requireContext: requireContext,
+        isLive: isLive,
         lineNumber: lineNumber,
         columnNumber: columnNumber,
       );

@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:async/async.dart';
 import 'package:path/path.dart';
 
 /// Type alias for StringBuffer.
@@ -116,5 +118,36 @@ extension FileX on File {
     final index = name.lastIndexOf('.');
     if (index == -1) return name; // no extension
     return name.substring(0, index);
+  }
+}
+
+Future<void> cmd(
+  String exe, {
+  List<String>? args,
+  Map<String, String>? env,
+  Directory? dWork,
+  bool verbose = true,
+}) async {
+  args ??= [];
+  env ??= {};
+  dWork ??= Directory.current;
+
+  final process = await Process.start(
+    exe,
+    args,
+    environment: env,
+    workingDirectory: dWork.path,
+  );
+  final stream = StreamGroup.merge([process.stdout, process.stderr]);
+  if (verbose) {
+    await for (final line in LineSplitter().bind(Utf8Decoder().bind(stream))) {
+      stdout.writeln(line);
+    }
+  } else {
+    await stream.drain();
+  }
+  final exitCode = await process.exitCode;
+  if (exitCode != 0) {
+    throw Exception("Command failed with exit code $exitCode");
   }
 }
